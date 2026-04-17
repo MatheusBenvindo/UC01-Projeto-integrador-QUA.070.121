@@ -529,3 +529,33 @@ async function generatePDF() {
         document.body.removeChild(wrapper);
     }
 }
+
+// ==== SISTEMA DE ABAS (TABS) ====
+function switchTab(tabId) {
+    const tabs = ['tab-1', 'tab-2', 'tab-3'];
+    
+    tabs.forEach(id => {
+        const content = document.getElementById(id);
+        const btn = document.getElementById('btn-' + id);
+        
+        if (id === tabId) {
+            // Activate Tab
+            content.classList.remove('hidden');
+            if (id === 'tab-3') {
+                content.classList.add('grid');
+            } else {
+                content.classList.add('flex');
+            }
+            
+            // Activate Button styling
+            btn.className = "tab-btn px-6 py-3 font-bold text-sm rounded-t-lg transition-all bg-senai-blue/20 text-senai-lightblue border-b-2 border-senai-lightblue shadow-[0_-4px_10px_rgba(0,125,197,0.1)]";
+        } else {
+            // Deactivate Tab
+            content.classList.add('hidden');
+            content.classList.remove('flex', 'grid');
+            
+            // Deactivate Button styling
+            btn.className = "tab-btn px-6 py-3 font-bold text-sm rounded-t-lg transition-all text-slate-400 hover:bg-white/5 hover:text-slate-300 border-b-2 border-transparent";
+        }
+    });
+}
