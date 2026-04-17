@@ -266,7 +266,7 @@ function renderEntities() {
         });
 
         container.innerHTML += `
-            <div class="ent-card bg-black/40 border border-slate-700 rounded-xl p-4 relative group hover:border-senai-blue/60 transition-colors shadow-lg flex flex-col min-h-[220px]" data-id="${ent.id}">
+            <div class="ent-card bg-black/40 border border-slate-700 rounded-xl p-4 relative group hover:border-senai-blue/60 transition-colors shadow-lg flex flex-col h-auto overflow-hidden" data-id="${ent.id}">
                 <button onclick="removeEntity(${ent.id})" class="absolute -top-3 -right-3 w-7 h-7 bg-red-500/10 text-red-500 border border-red-500/20 hover:bg-red-500 hover:text-white rounded-full flex justify-center items-center shadow-lg transition-all opacity-0 group-hover:opacity-100 scale-90 group-hover:scale-100 z-10" title="Apagar Tabela">
                     <i data-lucide="trash" class="w-3 h-3"></i>
                 </button>
@@ -285,7 +285,7 @@ function renderEntities() {
                     <input type="text" class="ent-pid w-full bg-slate-900 border border-emerald-900/50 focus:border-emerald-500 rounded text-emerald-400 font-mono text-xs px-2 py-1.5 outline-none transition-colors" placeholder="id_tabela" value="${ent.proposed_id}" onkeyup="validateNamingRules(this, 'id')">
                 </div>
 
-                <div class="flex-1 flex flex-col border-t border-slate-800/50 pt-2 mt-2">
+                <div class="flex flex-col border-t border-slate-800/50 pt-2 mt-2 min-h-0">
                     <div class="flex justify-between items-center mb-2">
                         <label class="text-senai-text text-[10px] font-bold uppercase flex items-center gap-1">
                             <i data-lucide="list" class="w-3 h-3"></i> Atributos Simples
@@ -294,7 +294,7 @@ function renderEntities() {
                             <i data-lucide="plus" class="w-3 h-3"></i> Adicionar
                         </button>
                     </div>
-                    <ul class="space-y-1 flex-1 overflow-visible pr-1">
+                    <ul class="space-y-1 overflow-y-auto max-h-[120px] min-h-0 custom-scrollbar pr-1">
                         ${attrHtml || '<li class="text-[10px] text-slate-600 text-center py-2 animate-pulse">Nenhum atributo mapeado</li>'}
                     </ul>
                 </div>
