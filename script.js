@@ -143,7 +143,7 @@ function removeEntity(id) {
 function addAttribute(entId) {
     const ent = appState.entities.find(e => e.id === entId);
     if(ent) {
-        ent.attributes.push({
+        ent.attributes.unshift({
             id: Date.now(),
             name: '',
             protection: 'nenhuma'
@@ -294,7 +294,7 @@ function renderEntities() {
                             <i data-lucide="plus" class="w-3 h-3"></i> Adicionar
                         </button>
                     </div>
-                    <ul class="space-y-1 flex-1 overflow-y-auto max-h-[140px] custom-scrollbar pr-1">
+                    <ul class="space-y-1 flex-1 overflow-visible pr-1">
                         ${attrHtml || '<li class="text-[10px] text-slate-600 text-center py-2 animate-pulse">Nenhum atributo mapeado</li>'}
                     </ul>
                 </div>

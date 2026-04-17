@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -37,15 +38,15 @@
         }
     </script>
     <style>
-        body { 
-            background-color: #0B0F19; 
-            color: #94A3B8; 
-            background-image: 
+        body {
+            background-color: #0B0F19;
+            color: #94A3B8;
+            background-image:
                 radial-gradient(at 0% 0%, rgba(0, 125, 197, 0.1) 0px, transparent 50%),
                 radial-gradient(at 100% 0%, rgba(243, 146, 0, 0.05) 0px, transparent 50%);
             background-attachment: fixed;
         }
-        
+
         .glass-panel {
             background: rgba(21, 28, 44, 0.6);
             backdrop-filter: blur(10px);
@@ -60,7 +61,7 @@
             color: white;
             transition: all 0.2s;
         }
-        
+
         .sys-input:focus {
             border-color: #00A9E0;
             box-shadow: 0 0 0 2px rgba(0, 169, 224, 0.2);
@@ -72,6 +73,7 @@
             border-color: #F39200 !important;
             box-shadow: 0 0 0 2px rgba(243, 146, 0, 0.2) !important;
         }
+
         .warn-accent {
             border-color: #EF4444 !important;
             box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.2) !important;
@@ -80,20 +82,24 @@
         .custom-scrollbar::-webkit-scrollbar {
             width: 6px;
         }
+
         .custom-scrollbar::-webkit-scrollbar-track {
             background: #0B0F19;
         }
+
         .custom-scrollbar::-webkit-scrollbar-thumb {
             background: #1E293B;
             border-radius: 4px;
         }
+
         .custom-scrollbar::-webkit-scrollbar-thumb:hover {
             background: #007DC5;
         }
-        
+
         .glow-border {
             position: relative;
         }
+
         .glow-border::after {
             content: "";
             position: absolute;
@@ -109,22 +115,28 @@
         }
     </style>
 </head>
+
 <body class="min-h-screen flex flex-col selection:bg-senai-lightblue selection:text-white relative">
 
     <header class="glass-panel border-b border-senai-border p-4 sticky top-0 z-40 shadow-lg">
         <div class="max-w-[1400px] mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
             <div class="flex items-center gap-4">
                 <div class="flex items-center">
-                    <img src="https://logodownload.org/wp-content/uploads/2019/08/senai-logo-1.png" alt="SENAI Logo" class="h-8 object-contain filter drop-shadow-md">
+                    <img src="https://logodownload.org/wp-content/uploads/2019/08/senai-logo-1.png" alt="SENAI Logo"
+                        class="h-8 object-contain filter drop-shadow-md">
                 </div>
                 <div>
                     <h1 class="text-xl font-bold tracking-tight text-white leading-none">LABORATÓRIO DBA</h1>
-                    <p class="text-xs text-senai-lightblue font-medium tracking-wide">ESTRUTURAÇÃO & ABSTRAÇÃO DE DADOS</p>
+                    <p class="text-xs text-senai-lightblue font-medium tracking-wide">ESTRUTURAÇÃO & ABSTRAÇÃO DE DADOS
+                    </p>
                 </div>
             </div>
             <div class="flex items-center gap-4">
-                <input type="text" id="input-group-name" class="sys-input rounded-md px-3 py-1.5 text-sm w-48 focus:w-64 transition-all" placeholder="Nome da Equipe..." onblur="saveHeaderInfo()">
-                <button onclick="resetData()" class="text-xs text-red-400 hover:text-white flex items-center gap-1 transition-colors px-3 py-1.5 rounded bg-red-500/10 hover:bg-red-500/30 border border-red-500/20">
+                <input type="text" id="input-group-name"
+                    class="sys-input rounded-md px-3 py-1.5 text-sm w-48 focus:w-64 transition-all" placeholder="Nome"
+                    onblur="saveHeaderInfo()">
+                <button onclick="resetData()"
+                    class="text-xs text-red-400 hover:text-white flex items-center gap-1 transition-colors px-3 py-1.5 rounded bg-red-500/10 hover:bg-red-500/30 border border-red-500/20">
                     <i data-lucide="trash-2" class="w-3 h-3"></i> Limpar Banco
                 </button>
             </div>
@@ -141,11 +153,13 @@
                 </div>
                 <h2 class="text-xl text-white font-bold">Classificação Teórica (Fundamentos)</h2>
             </div>
-            
+
             <div class="grid md:grid-cols-3 gap-6">
                 <div class="space-y-2">
-                    <label class="block text-xs font-bold text-senai-text uppercase tracking-wider">Natureza dos Dados (Origem)</label>
-                    <select id="config-natureza" class="sys-input w-full rounded-lg p-3 text-sm cursor-pointer" onchange="saveHeaderInfo()">
+                    <label class="block text-xs font-bold text-senai-text uppercase tracking-wider">Natureza dos Dados
+                        (Origem)</label>
+                    <select id="config-natureza" class="sys-input w-full rounded-lg p-3 text-sm cursor-pointer"
+                        onchange="saveHeaderInfo()">
                         <option value="" disabled selected>Selecione...</option>
                         <option value="estruturada">Estruturada (Tabelas)</option>
                         <option value="semiestruturada">Semiestruturada (JSON / XML)</option>
@@ -154,8 +168,10 @@
                 </div>
 
                 <div class="space-y-2">
-                    <label class="block text-xs font-bold text-senai-text uppercase tracking-wider">Modelo Estrutural Ideal</label>
-                    <select id="config-modelo" class="sys-input w-full rounded-lg p-3 text-sm cursor-pointer" onchange="saveHeaderInfo()">
+                    <label class="block text-xs font-bold text-senai-text uppercase tracking-wider">Modelo Estrutural
+                        Ideal</label>
+                    <select id="config-modelo" class="sys-input w-full rounded-lg p-3 text-sm cursor-pointer"
+                        onchange="saveHeaderInfo()">
                         <option value="" disabled selected>Selecione...</option>
                         <option value="relacional">Banco Relacional (SQL / brModelo)</option>
                         <option value="nao_relacional">Banco Não-Relacional (NoSQL)</option>
@@ -163,59 +179,77 @@
                 </div>
 
                 <div class="space-y-2 md:col-span-3">
-                    <label class="block text-xs font-bold text-senai-text uppercase tracking-wider flex items-center justify-between">
+                    <label
+                        class="block text-xs font-bold text-senai-text uppercase tracking-wider flex items-center justify-between">
                         <span>Relatório de Abstração Crítica</span>
-                        <span class="text-senai-orange text-[10px] bg-senai-orange/10 px-2 py-0.5 rounded border border-senai-orange/20">Identifique o Ruído Sistêmico</span>
+                        <span
+                            class="text-senai-orange text-[10px] bg-senai-orange/10 px-2 py-0.5 rounded border border-senai-orange/20">Identifique
+                            o Ruído Sistêmico</span>
                     </label>
-                    <textarea id="config-abstracao" onchange="saveHeaderInfo()" class="sys-input w-full rounded-lg p-3 text-sm h-20 resize-none" placeholder="Liste o que você decidiu ignorar nestes dados brutos por ser irrelevante para o sistema (Ruídos) e justifique o motivo..."></textarea>
+                    <textarea id="config-abstracao" onchange="saveHeaderInfo()"
+                        class="sys-input w-full rounded-lg p-3 text-sm h-20 resize-none"
+                        placeholder="Liste o que você decidiu ignorar nestes dados brutos por ser irrelevante para o sistema (Ruídos) e justifique o motivo..."></textarea>
                 </div>
             </div>
         </section>
 
         <!-- 2. Interface de Trabalho (Split View) -->
         <div class="grid lg:grid-cols-12 gap-6">
-            
+
             <!-- ESQUERDA: Dados Brutos -->
             <section class="lg:col-span-5 flex flex-col h-[700px]">
-        <div class="glass-panel rounded-t-xl p-4 border-b border-senai-border flex justify-between items-center bg-senai-dark/50">
-            <div class="flex items-center gap-2">
-                <i data-lucide="file-json" class="w-5 h-5 text-emerald-400"></i>
-                <h3 class="font-bold text-white">Registros Brutos</h3>
-            </div>
-            <div class="flex flex-col sm:flex-row items-end sm:items-center gap-2 text-[10px]">
-                <span id="estimated-tables-badge" class="bg-senai-orange/20 text-senai-orange border border-senai-orange/30 px-2 py-1 rounded hidden flex items-center gap-1" title="A estimativa é baseada no volume de atributos únicos do JSON"></span>
-                <span class="bg-slate-800 text-slate-400 px-2 py-1 rounded border border-slate-700">Amostra extraída de arquivo JSON</span>
-            </div>
-        </div>
-                <div class="glass-panel rounded-b-xl p-4 flex-1 overflow-y-auto custom-scrollbar space-y-3" id="evidence-container">
+                <div
+                    class="glass-panel rounded-t-xl p-4 border-b border-senai-border flex justify-between items-center bg-senai-dark/50">
+                    <div class="flex items-center gap-2">
+                        <i data-lucide="file-json" class="w-5 h-5 text-emerald-400"></i>
+                        <h3 class="font-bold text-white">Registros Brutos</h3>
+                    </div>
+                    <div class="flex flex-col sm:flex-row items-end sm:items-center gap-2 text-[10px]">
+                        <span id="estimated-tables-badge"
+                            class="bg-senai-orange/20 text-senai-orange border border-senai-orange/30 px-2 py-1 rounded hidden flex items-center gap-1"
+                            title="A estimativa é baseada no volume de atributos únicos do JSON"></span>
+                        <span class="bg-slate-800 text-slate-400 px-2 py-1 rounded border border-slate-700">Amostra
+                            extraída de arquivo JSON</span>
+                    </div>
+                </div>
+                <div class="glass-panel rounded-b-xl p-4 flex-1 overflow-y-auto custom-scrollbar space-y-3"
+                    id="evidence-container">
                     <!-- Cards via JS -->
                 </div>
             </section>
 
             <!-- DIREITA: Área de Engenharia -->
             <section class="lg:col-span-7 flex flex-col h-[700px] gap-4">
-                
-                <div class="glass-panel p-4 rounded-xl border-l-4 border-l-senai-orange bg-gradient-to-r from-senai-orange/10 to-transparent flex gap-4 items-start shadow-md">
+
+                <div
+                    class="glass-panel p-4 rounded-xl border-l-4 border-l-senai-orange bg-gradient-to-r from-senai-orange/10 to-transparent flex gap-4 items-start shadow-md">
                     <div class="bg-senai-orange/20 p-2 rounded shrink-0">
                         <i data-lucide="alert-triangle" class="w-5 h-5 text-senai-orange"></i>
                     </div>
                     <div class="text-xs text-slate-300 space-y-1">
-                        <strong class="text-senai-orange uppercase tracking-wider block">Desafio de Padronização e Segurança</strong>
-                        <p><strong>Unificação:</strong> O sistema contém nomes semelhantes que representam a mesma coisa (Ex: "Caterpilar" vs "Caterpillar LTDA"). Crie <strong>uma única tabela</strong> sem duplicidades.</p>
-                        <p><strong>Governança:</strong> Identifique atributos de negócio e técnicos e avalie aplicar filtros de Máscara ou Criptografia quando sensíveis.</p>
+                        <strong class="text-senai-orange uppercase tracking-wider block">Desafio de Padronização e
+                            Segurança</strong>
+                        <p><strong>Unificação:</strong> O sistema contém nomes semelhantes que representam a mesma coisa
+                            (Ex: "Caterpilar" vs "Caterpillar LTDA"). Crie <strong>uma única tabela</strong> sem
+                            duplicidades.</p>
+                        <p><strong>Governança:</strong> Identifique atributos de negócio e técnicos e avalie aplicar
+                            filtros de Máscara ou Criptografia quando sensíveis.</p>
                     </div>
                 </div>
 
                 <div class="glass-panel rounded-xl flex-1 flex flex-col overflow-hidden glow-border">
-                    <div class="p-4 border-b border-senai-border bg-senai-dark/50 flex justify-between items-center sticky top-0 z-10">
+                    <div
+                        class="p-4 border-b border-senai-border bg-senai-dark/50 flex justify-between items-center sticky top-0 z-10">
                         <h3 class="font-bold text-white flex items-center gap-2">
                             <i data-lucide="box" class="w-5 h-5 text-senai-lightblue"></i> Gerenciador de Entidades
                         </h3>
-                        <button onclick="addEntity()" class="bg-senai-blue hover:bg-senai-lightblue text-white text-xs font-bold py-2 px-4 rounded transition-colors shadow-lg flex items-center gap-2 hover:-translate-y-0.5 transform">
+                        <button onclick="addEntity()"
+                            class="bg-senai-blue hover:bg-senai-lightblue text-white text-xs font-bold py-2 px-4 rounded transition-colors shadow-lg flex items-center gap-2 hover:-translate-y-0.5 transform">
                             <i data-lucide="plus" class="w-4 h-4"></i> Nova Tabela
                         </button>
                     </div>
-                    <div class="p-4 flex-1 overflow-y-auto custom-scrollbar grid grid-cols-1 md:grid-cols-2 gap-4 content-start" id="entities-container">
+                    <div class="p-4 flex-1 overflow-y-auto custom-scrollbar grid grid-cols-1 md:grid-cols-2 gap-4 content-start"
+                        id="entities-container">
                         <!-- Entities in JS -->
                     </div>
                 </div>
@@ -225,29 +259,42 @@
 
         <!-- AREA 3: Mapeador de Relações e Geração -->
         <div class="grid lg:grid-cols-12 gap-6">
-            
+
             <section class="lg:col-span-8 glass-panel rounded-xl flex flex-col">
-                <div class="p-4 border-b border-senai-border bg-senai-dark/50 flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
+                <div
+                    class="p-4 border-b border-senai-border bg-senai-dark/50 flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
                     <h3 class="font-bold text-white flex items-center gap-2 min-w-max">
                         <i data-lucide="git-merge" class="w-5 h-5 text-purple-400"></i> Relacionamentos
                     </h3>
-                    <div class="text-[10px] text-purple-300 bg-purple-400/10 border border-purple-400/20 px-3 py-1.5 rounded-full flex gap-2 items-center">
-                        <i data-lucide="info" class="w-3 h-3"></i> 
-                        <span class="font-medium">Faça apenas vínculos simples. Evite 3+ tabelas na mesma ligação.</span>
+                    <div
+                        class="text-[10px] text-purple-300 bg-purple-400/10 border border-purple-400/20 px-3 py-1.5 rounded-full flex gap-2 items-center">
+                        <i data-lucide="info" class="w-3 h-3"></i>
+                        <span class="font-medium">Faça apenas vínculos simples. Evite 3+ tabelas na mesma
+                            ligação.</span>
                     </div>
                 </div>
-                
-                <div class="p-6">
-                    <div class="flex flex-col md:flex-row gap-3 items-center bg-black/30 p-4 rounded-lg border border-senai-border mb-6 relative">
-                        <input type="text" id="rel-ent1" class="sys-input rounded-lg p-2 text-sm w-full text-center font-mono uppercase text-emerald-300" placeholder="Entidade 1" onkeyup="validateNamingRules(this)">
-                        <div class="flex flex-col items-center gap-1 w-full md:w-auto shrink-0">
-                            <input type="text" id="rel-verb" class="sys-input rounded-lg p-2 text-sm w-32 text-center text-purple-400" placeholder="Verbo (compra)" onkeyup="validateNamingRules(this)">
-                        </div>
-                        <input type="text" id="rel-ent2" class="sys-input rounded-lg p-2 text-sm w-full text-center font-mono uppercase text-emerald-300" placeholder="Entidade 2" onkeyup="validateNamingRules(this)">
-                        
-                        <div class="validation-msg absolute top-full left-0 w-full mt-1 text-center text-[10px] font-bold hidden"></div>
 
-                        <button onclick="addRelation()" class="bg-purple-500 hover:bg-purple-600 text-white font-bold py-2.5 px-6 rounded-lg transition-colors shadow-lg shadow-purple-500/20 whitespace-nowrap w-full md:w-auto mt-2 md:mt-0">
+                <div class="p-6">
+                    <div
+                        class="flex flex-col md:flex-row gap-3 items-center bg-black/30 p-4 rounded-lg border border-senai-border mb-6 relative">
+                        <input type="text" id="rel-ent1"
+                            class="sys-input rounded-lg p-2 text-sm w-full text-center font-mono uppercase text-emerald-300"
+                            placeholder="Entidade 1" onkeyup="validateNamingRules(this)">
+                        <div class="flex flex-col items-center gap-1 w-full md:w-auto shrink-0">
+                            <input type="text" id="rel-verb"
+                                class="sys-input rounded-lg p-2 text-sm w-32 text-center text-purple-400"
+                                placeholder="Verbo (compra)" onkeyup="validateNamingRules(this)">
+                        </div>
+                        <input type="text" id="rel-ent2"
+                            class="sys-input rounded-lg p-2 text-sm w-full text-center font-mono uppercase text-emerald-300"
+                            placeholder="Entidade 2" onkeyup="validateNamingRules(this)">
+
+                        <div
+                            class="validation-msg absolute top-full left-0 w-full mt-1 text-center text-[10px] font-bold hidden">
+                        </div>
+
+                        <button onclick="addRelation()"
+                            class="bg-purple-500 hover:bg-purple-600 text-white font-bold py-2.5 px-6 rounded-lg transition-colors shadow-lg shadow-purple-500/20 whitespace-nowrap w-full md:w-auto mt-2 md:mt-0">
                             Ligar
                         </button>
                     </div>
@@ -258,15 +305,21 @@
             </section>
 
             <!-- Exportar Guia -->
-            <section class="lg:col-span-4 glass-panel rounded-xl flex flex-col justify-center items-center p-8 text-center glow-border border-senai-lightblue relative overflow-hidden group">
-                <div class="absolute inset-0 bg-gradient-to-br from-senai-blue/10 to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <div class="bg-gradient-to-b from-slate-800 to-black p-4 rounded-full shadow-2xl mb-6 relative z-10 border border-slate-700">
+            <section
+                class="lg:col-span-4 glass-panel rounded-xl flex flex-col justify-center items-center p-8 text-center glow-border border-senai-lightblue relative overflow-hidden group">
+                <div
+                    class="absolute inset-0 bg-gradient-to-br from-senai-blue/10 to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                </div>
+                <div
+                    class="bg-gradient-to-b from-slate-800 to-black p-4 rounded-full shadow-2xl mb-6 relative z-10 border border-slate-700">
                     <i data-lucide="file-down" class="w-10 h-10 text-white"></i>
                 </div>
                 <h2 class="text-xl font-bold text-white mb-2 relative z-10">Exportação de Projeto</h2>
-                <p class="text-sm text-slate-400 mb-8 max-w-[250px] relative z-10">Gere um documento final formal (PDF) para apresentação da sua arquitetura estrutural.</p>
-                
-                <button onclick="generatePDF()" class="bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white font-bold py-3 px-8 rounded-full shadow-lg shadow-emerald-500/30 transition-all flex items-center gap-2 hover:scale-105 relative z-10 w-full justify-center border border-emerald-400/50">
+                <p class="text-sm text-slate-400 mb-8 max-w-[250px] relative z-10">Gere um documento final formal (PDF)
+                    para apresentação da sua arquitetura estrutural.</p>
+
+                <button onclick="generatePDF()"
+                    class="bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white font-bold py-3 px-8 rounded-full shadow-lg shadow-emerald-500/30 transition-all flex items-center gap-2 hover:scale-105 relative z-10 w-full justify-center border border-emerald-400/50">
                     <i data-lucide="file-text" class="w-5 h-5"></i> Gerar Relatório Final (PDF)
                 </button>
             </section>
@@ -276,28 +329,37 @@
     </main>
 
     <!-- Botão Flutuante (Dicas) -->
-    <button onclick="toggleTips()" class="fixed bottom-6 right-6 bg-senai-blue hover:bg-senai-lightblue text-white p-4 rounded-full shadow-[0_0_15px_rgba(0,169,224,0.5)] z-50 flex items-center justify-center transition-transform hover:scale-110">
+    <button onclick="toggleTips()"
+        class="fixed bottom-6 right-6 bg-senai-blue hover:bg-senai-lightblue text-white p-4 rounded-full shadow-[0_0_15px_rgba(0,169,224,0.5)] z-50 flex items-center justify-center transition-transform hover:scale-110">
         <i data-lucide="lightbulb" class="w-6 h-6"></i>
     </button>
 
     <!-- Painel de Dicas -->
-    <div id="tips-panel" class="fixed bottom-24 right-6 w-80 glass-panel bg-slate-900/95 border-senai-lightblue/50 rounded-xl shadow-2xl z-50 transform transition-transform translate-x-[120%] opacity-0">
+    <div id="tips-panel"
+        class="fixed bottom-24 right-6 w-80 glass-panel bg-slate-900/95 border-senai-lightblue/50 rounded-xl shadow-2xl z-50 transform transition-transform translate-x-[120%] opacity-0">
         <div class="p-4 border-b border-slate-800 flex justify-between items-center bg-senai-blue/10 rounded-t-xl">
-            <h3 class="font-bold text-white flex items-center gap-2 text-sm"><i data-lucide="graduation-cap" class="w-4 h-4 text-senai-lightblue"></i> Dicas do Instrutor Matheus</h3>
-            <button onclick="toggleTips()" class="text-slate-400 hover:text-white"><i data-lucide="x" class="w-4 h-4"></i></button>
+            <h3 class="font-bold text-white flex items-center gap-2 text-sm"><i data-lucide="graduation-cap"
+                    class="w-4 h-4 text-senai-lightblue"></i> Dicas do Instrutor Matheus</h3>
+            <button onclick="toggleTips()" class="text-slate-400 hover:text-white"><i data-lucide="x"
+                    class="w-4 h-4"></i></button>
         </div>
         <div class="p-4 space-y-4 text-xs">
             <div class="bg-black/50 p-3 rounded border border-slate-800">
                 <strong class="text-emerald-400 block mb-1">[Segurança LGPD & Negócios]</strong>
-                <p class="text-slate-300">Dados que identificam pessoas (CPF) ou entregam estratégia (Custo) <b>devem</b> ser mascarados ou criptografados. Se o concorrente puder acessar e for prejudicial, proteja!</p>
+                <p class="text-slate-300">Dados que identificam pessoas (CPF) ou entregam estratégia (Custo)
+                    <b>devem</b> ser mascarados ou criptografados. Se o concorrente puder acessar e for prejudicial,
+                    proteja!</p>
             </div>
             <div class="bg-black/50 p-3 rounded border border-slate-800">
                 <strong class="text-purple-400 block mb-1">[Abstração e Limpeza]</strong>
-                <p class="text-slate-300">Comentários soltos como "amigo do chefe" são ruídos no banco relacional. Ignore o que não for diretamente necessário ao sistema.</p>
+                <p class="text-slate-300">Comentários soltos como "amigo do chefe" são ruídos no banco relacional.
+                    Ignore o que não for diretamente necessário ao sistema.</p>
             </div>
             <div class="bg-black/50 p-3 rounded border border-slate-800">
                 <strong class="text-senai-lightblue block mb-1">[Nomenclatura Técnica]</strong>
-                <p class="text-slate-300">Evite acentos e use <code>_</code> no lugar de espaços. Em ambientes corporativos, tabelas costumam iniciar com <code>TB_</code> e ter letras <code>MAIÚSCULAS</code>.</p>
+                <p class="text-slate-300">Evite acentos e use <code>_</code> no lugar de espaços. Em ambientes
+                    corporativos, tabelas costumam iniciar com <code>TB_</code> e ter letras <code>MAIÚSCULAS</code>.
+                </p>
             </div>
         </div>
     </div>
@@ -307,4 +369,5 @@
         lucide.createIcons();
     </script>
 </body>
+
 </html>
