@@ -18,7 +18,18 @@ document.addEventListener("DOMContentLoaded", () => {
     if (appState.config.natureza) document.getElementById('config-natureza').value = appState.config.natureza;
     if (appState.config.modelo) document.getElementById('config-modelo').value = appState.config.modelo;
     if (appState.config.abstracao) document.getElementById('config-abstracao').value = appState.config.abstracao;
-    
+
+    const entitiesContainer = document.getElementById('entities-container');
+    if (entitiesContainer) {
+        entitiesContainer.addEventListener('click', (event) => {
+            const removeButton = event.target.closest('[data-remove-attribute]');
+            if (!removeButton) return;
+
+            event.stopPropagation();
+            removeAttribute(removeButton.dataset.entId, removeButton.dataset.attrId);
+        });
+    }
+
     loadEvidence();
     renderEntities();
     renderRelations();
@@ -37,7 +48,7 @@ function saveHeaderInfo() {
 }
 
 function resetData() {
-    if(confirm('Atenção: Isso irá apagar todo o seu banco de dados local. Deseja prosseguir com a Limpeza?')) {
+    if (confirm('Atenção: Isso irá apagar todo o seu banco de dados local. Deseja prosseguir com a Limpeza?')) {
         localStorage.removeItem('dba_split_state');
         location.reload();
     }
@@ -50,20 +61,20 @@ async function loadEvidence() {
     try {
         const response = await fetch('data.json?timestamp=' + new Date().getTime());
         const data = await response.json();
-        
+
         // Estimativa do mínimo de tabelas baseada nas chaves
         let possibleEntities = new Set();
-        if(data.length > 0) {
+        if (data.length > 0) {
             const keys = Object.keys(data[0]);
             keys.forEach(k => {
-                if(k.includes('cliente')) possibleEntities.add('cliente');
-                if(k.includes('peca')) possibleEntities.add('peca');
-                if(k.includes('fabricante') || k.includes('fornecedor')) possibleEntities.add('fabricante');
-                if(k.includes('transacao') || k.includes('pedido') || k.includes('venda')) possibleEntities.add('transacao');
+                if (k.includes('cliente')) possibleEntities.add('cliente');
+                if (k.includes('peca')) possibleEntities.add('peca');
+                if (k.includes('fabricante') || k.includes('fornecedor')) possibleEntities.add('fabricante');
+                if (k.includes('transacao') || k.includes('pedido') || k.includes('venda')) possibleEntities.add('transacao');
             });
-            const minTables = Math.max(3, possibleEntities.size); 
+            const minTables = Math.max(3, possibleEntities.size);
             const badge = document.getElementById('estimated-tables-badge');
-            if(badge) {
+            if (badge) {
                 badge.innerHTML = `<i data-lucide="brain" class="inline w-3 h-3 mr-1"></i> Recomendação: Mín. ${minTables} Tabelas`;
                 badge.classList.remove('hidden');
             }
@@ -75,7 +86,7 @@ async function loadEvidence() {
         data.forEach(item => {
             const card = document.createElement('div');
             card.className = 'bg-black/40 border border-slate-800 p-3 rounded-lg text-[11px] relative shadow-sm hover:border-senai-lightblue/50 transition-colors font-mono';
-            
+
             card.innerHTML = `
                 <div class="absolute top-2 right-2 bg-slate-900 text-slate-500 text-[9px] px-2 py-0.5 rounded border border-slate-700">${item.id_transacao}</div>
                 <div class="mb-2 border-b border-slate-800/80 pb-2 flex justify-between items-end">
@@ -98,7 +109,7 @@ async function loadEvidence() {
             container.appendChild(card);
         });
         lucide.createIcons({ root: container });
-        if(document.getElementById('estimated-tables-badge')) lucide.createIcons({ root: document.getElementById('estimated-tables-badge') });
+        if (document.getElementById('estimated-tables-badge')) lucide.createIcons({ root: document.getElementById('estimated-tables-badge') });
 
     } catch (e) {
         const container = document.getElementById('evidence-container');
@@ -135,14 +146,22 @@ function addEntity() {
 }
 
 function removeEntity(id) {
-    appState.entities = appState.entities.filter(e => e.id !== id);
-    saveState();
-    renderEntities();
+    const ent = appState.entities.find(e => String(e.id) === String(id));
+    if (ent) {
+        const nameToKill = ent.name;
+        appState.entities = appState.entities.filter(e => String(e.id) !== String(id));
+        if (nameToKill) {
+            appState.relations = appState.relations.filter(r => r.ent1 !== nameToKill && r.ent2 !== nameToKill);
+        }
+        saveState();
+        renderEntities();
+        if (typeof renderRelations === 'function') renderRelations();
+    }
 }
 
 function addAttribute(entId) {
     const ent = appState.entities.find(e => e.id === entId);
-    if(ent) {
+    if (ent) {
         ent.attributes.unshift({
             id: Date.now(),
             name: '',
@@ -154,9 +173,9 @@ function addAttribute(entId) {
 }
 
 function removeAttribute(entId, attrId) {
-    const ent = appState.entities.find(e => e.id === entId);
-    if(ent) {
-        ent.attributes = ent.attributes.filter(a => a.id !== attrId);
+    const ent = appState.entities.find(e => String(e.id) === String(entId));
+    if (ent) {
+        ent.attributes = ent.attributes.filter(a => String(a.id) !== String(attrId));
         saveState();
         renderEntities();
     }
@@ -164,21 +183,21 @@ function removeAttribute(entId, attrId) {
 
 
 // Validação Visual Passiva (Highlight Rules)
-function validateNamingRules(elem, type='') {
+function validateNamingRules(elem, type = '') {
     const val = elem.value;
-    
+
     // Resetar alertas visuais
     elem.classList.remove('warn-space', 'warn-accent');
     let titleMsg = [];
 
     // Regra Espaço -> Underline
-    if(/\s/.test(val)) {
+    if (/\s/.test(val)) {
         elem.classList.add('warn-space');
         titleMsg.push("O DBA recomenda: substitua espaços por UNDERLINE (_).");
     }
 
     // Regra Acento/Char Estranho
-    if(/[áàâãéèêíïóôõöúçñÁÀÂÃÉÈÊÍÏÓÔÕÖÚÇÑ]/.test(val)) {
+    if (/[áàâãéèêíïóôõöúçñÁÀÂÃÉÈÊÍÏÓÔÕÖÚÇÑ]/.test(val)) {
         elem.classList.add('warn-accent');
         titleMsg.push("O DBA alerta: acentos causam problemas graves em bancos SQL. Não utilize.");
     }
@@ -186,7 +205,7 @@ function validateNamingRules(elem, type='') {
     // Se estiver validando ID, verificar CPF/RG
     if (type === 'id') {
         const check = val.toLowerCase();
-        if(check === 'cpf' || check === 'rg') {
+        if (check === 'cpf' || check === 'rg') {
             alert("REGRA DE OURO DBA: Um dado que sofre mutações no mundo real ou que possa ser reutilizado indevidamente não deve atuar como Identificador Único do sistema. Crie um ID artificial!");
             elem.value = "id_";
         }
@@ -200,29 +219,29 @@ function validateNamingRules(elem, type='') {
 function saveEntityLive(elem) {
     // Determine context (Entity Name, Entity ID, Attribute, Relation)
     const card = elem.closest('.ent-card');
-    if(!card) return; // If is relation, we handle logic at save time, we only need visual warning above
-    
+    if (!card) return; // If is relation, we handle logic at save time, we only need visual warning above
+
     const entId = Number(card.getAttribute('data-id'));
     const ent = appState.entities.find(e => e.id === entId);
-    if(!ent) return;
+    if (!ent) return;
 
-    if(elem.classList.contains('ent-name')) ent.name = elem.value;
-    if(elem.classList.contains('ent-pid'))  ent.proposed_id = elem.value;
-    
-    if(elem.classList.contains('attr-name')) {
+    if (elem.classList.contains('ent-name')) ent.name = elem.value;
+    if (elem.classList.contains('ent-pid')) ent.proposed_id = elem.value;
+
+    if (elem.classList.contains('attr-name')) {
         const attrId = Number(elem.closest('li').getAttribute('data-attr-id'));
         const attr = ent.attributes.find(a => a.id === attrId);
-        if(attr) attr.name = elem.value;
+        if (attr) attr.name = elem.value;
     }
-    
-    if(elem.classList.contains('attr-prot')) {
+
+    if (elem.classList.contains('attr-prot')) {
         const attrId = Number(elem.closest('li').getAttribute('data-attr-id'));
         const attr = ent.attributes.find(a => a.id === attrId);
-        if(attr) {
+        if (attr) {
             attr.protection = elem.value;
             // Dica proativa de LGPD se o nome sugerir risco e deixado sem protecao
             const nLower = attr.name.toLowerCase();
-            if(attr.protection === 'nenhuma' && (nLower.includes('preco') || nLower.includes('custo') || nLower.includes('cpf') || nLower.includes('senha'))) {
+            if (attr.protection === 'nenhuma' && (nLower.includes('preco') || nLower.includes('custo') || nLower.includes('cpf') || nLower.includes('senha'))) {
                 alert(`Dica de Negócio: Campos como "${attr.name}" carregam alto risco cibernético e segredo industrial. Tem certeza que o nível de proteção deve ser "Nenhuma"?`);
             }
         }
@@ -235,7 +254,7 @@ function saveEntityLive(elem) {
 function renderEntities() {
     const container = document.getElementById('entities-container');
     container.innerHTML = '';
-    
+
     if (appState.entities.length === 0) {
         container.innerHTML = `
             <div class="col-span-1 md:col-span-2 flex flex-col justify-center items-center h-48 border-2 border-dashed border-senai-border rounded-xl text-slate-500 opacity-60">
@@ -251,15 +270,22 @@ function renderEntities() {
         let attrHtml = '';
         ent.attributes.forEach(a => {
             attrHtml += `
-                <li class="flex gap-2 items-center bg-black/40 border border-slate-800 p-1 rounded group" data-attr-id="${a.id}">
+                <li class="flex gap-2 items-center bg-black/40 border border-slate-800 p-1 rounded group relative" data-attr-id="${a.id}">
                     <input type="text" class="attr-name flex-1 bg-transparent border-b border-transparent focus:border-senai-lightblue text-slate-300 font-mono text-[10px] px-1 outline-none transition-colors" placeholder="nome_atributo" value="${a.name}" onkeyup="validateNamingRules(this)">
                     <select class="attr-prot bg-slate-900 border border-slate-700 text-slate-400 text-[9px] rounded p-1 outline-none cursor-pointer" onchange="saveEntityLive(this)">
-                        <option value="nenhuma" ${a.protection==='nenhuma'?'selected':''}>🔓 Nenhuma</option>
-                        <option value="mascarar" ${a.protection==='mascarar'?'selected':''}>🎭 Mascarar</option>
-                        <option value="criptografar" ${a.protection==='criptografar'?'selected':''}>🔐 Cripto</option>
+                        <option value="nenhuma" ${a.protection === 'nenhuma' ? 'selected' : ''}>🔓 Nenhuma</option>
+                        <option value="mascarar" ${a.protection === 'mascarar' ? 'selected' : ''}>🎭 Mascarar</option>
+                        <option value="criptografar" ${a.protection === 'criptografar' ? 'selected' : ''}>🔐 Cripto</option>
                     </select>
-                    <button onclick="removeAttribute(${ent.id}, ${a.id})" class="text-slate-500 hover:text-red-400 opacity-60 hover:opacity-100 transition-opacity p-1">
-                        <i data-lucide="x" class="w-3 h-3"></i>
+                    <button
+                        type="button"
+                        data-remove-attribute
+                        data-ent-id="${ent.id}"
+                        data-attr-id="${a.id}"
+                        class="shrink-0 relative z-10 text-slate-500 hover:text-red-400 opacity-80 hover:opacity-100 transition-opacity p-1"
+                        title="Remover atributo"
+                    >
+                        <i data-lucide="x" class="w-3 h-3 pointer-events-none"></i>
                     </button>
                 </li>
             `;
@@ -311,19 +337,19 @@ function addRelation() {
     const e1 = document.getElementById('rel-ent1');
     const vb = document.getElementById('rel-verb');
     const e2 = document.getElementById('rel-ent2');
-    
+
     const ent1 = e1.value.trim();
     const verb = vb.value.trim();
     const ent2 = e2.value.trim();
 
-    if(!ent1 || !verb || !ent2) {
+    if (!ent1 || !verb || !ent2) {
         alert("Preencha todos os 3 campos obrigatórios para formular uma ligação (Entidade -> Ação -> Entidade).");
         return;
     }
 
     appState.relations.push({ id: Date.now(), ent1, verb, ent2 });
     saveState();
-    
+
     e1.value = '';
     vb.value = '';
     e2.value = '';
@@ -344,9 +370,9 @@ function removeRelation(id) {
 function renderRelations() {
     const list = document.getElementById('relations-container');
     list.innerHTML = '';
-    
+
     if (appState.relations.length === 0) return;
-    
+
     appState.relations.forEach(r => {
         list.innerHTML += `
             <div class="col-span-1 border border-purple-500/20 bg-purple-900/10 p-3 rounded-lg flex flex-col justify-center items-center text-xs relative group shadow-sm">
@@ -533,11 +559,11 @@ async function generatePDF() {
 // ==== SISTEMA DE ABAS (TABS) ====
 function switchTab(tabId) {
     const tabs = ['tab-1', 'tab-2', 'tab-3'];
-    
+
     tabs.forEach(id => {
         const content = document.getElementById(id);
         const btn = document.getElementById('btn-' + id);
-        
+
         if (id === tabId) {
             // Activate Tab
             content.classList.remove('hidden');
@@ -546,14 +572,14 @@ function switchTab(tabId) {
             } else {
                 content.classList.add('flex');
             }
-            
+
             // Activate Button styling
             btn.className = "tab-btn px-6 py-3 font-bold text-sm rounded-t-lg transition-all bg-senai-blue/20 text-senai-lightblue border-b-2 border-senai-lightblue shadow-[0_-4px_10px_rgba(0,125,197,0.1)]";
         } else {
             // Deactivate Tab
             content.classList.add('hidden');
             content.classList.remove('flex', 'grid');
-            
+
             // Deactivate Button styling
             btn.className = "tab-btn px-6 py-3 font-bold text-sm rounded-t-lg transition-all text-slate-400 hover:bg-white/5 hover:text-slate-300 border-b-2 border-transparent";
         }

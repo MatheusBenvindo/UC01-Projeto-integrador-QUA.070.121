@@ -1,7 +1,11 @@
 [
     {
         "id_transacao": "TRX-001",
-        "metadata": {"ip_origem": "192.168.0.45", "navegador": "Chrome/124.0", "latencia_ms": 12},
+        "metadata": {
+            "ip_origem": "192.168.0.45",
+            "navegador": "Chrome/124.0",
+            "latencia_ms": 12
+        },
         "origem_dado": "PDV_Vendas_Balcao",
         "dados_cliente": "João Silva (Avulso) - CPF: 111.222.333-44",
         "contato_cliente": "Telefone (11) 99123-4455",
@@ -14,7 +18,11 @@
     },
     {
         "id_transacao": "TRX-002",
-        "metadata": {"ip_origem": "10.0.0.2", "navegador": "ERP_Desktop_V2", "latencia_ms": 5},
+        "metadata": {
+            "ip_origem": "10.0.0.2",
+            "navegador": "ERP_Desktop_V2",
+            "latencia_ms": 5
+        },
         "origem_dado": "Portal_Faturamento",
         "dados_cliente": "Construtora Solo S.A. - CNPJ: 10.000.000/0001-00",
         "contato_cliente": "Email: compras@solo.com.br",
@@ -27,7 +35,11 @@
     },
     {
         "id_transacao": "TRX-003",
-        "metadata": {"ip_origem": "127.0.0.1", "navegador": "Admin_Console", "latencia_ms": 0},
+        "metadata": {
+            "ip_origem": "127.0.0.1",
+            "navegador": "Admin_Console",
+            "latencia_ms": 0
+        },
         "origem_dado": "PDV_Vendas_Oficina",
         "dados_cliente": "Uso Interno (Oficina) - Setor B",
         "contato_cliente": "Ramal 40 / r-40@empresa.com",
@@ -40,7 +52,11 @@
     },
     {
         "id_transacao": "TRX-004",
-        "metadata": {"ip_origem": "172.16.254.1", "navegador": "Mobile_App_V1", "latencia_ms": 150},
+        "metadata": {
+            "ip_origem": "172.16.254.1",
+            "navegador": "Mobile_App_V1",
+            "latencia_ms": 150
+        },
         "origem_dado": "Portal_Faturamento",
         "dados_cliente": "Constrat. Solo (Filial Sul) - CNPJ: 10.000.000/0002-55",
         "contato_cliente": "Email: compras@solo.com.br / Tel: (51) 3344-5566",
@@ -53,7 +69,11 @@
     },
     {
         "id_transacao": "TRX-005",
-        "metadata": {"ip_origem": "192.168.0.12", "navegador": "Chrome/124.0", "latencia_ms": 22},
+        "metadata": {
+            "ip_origem": "192.168.0.12",
+            "navegador": "Chrome/124.0",
+            "latencia_ms": 22
+        },
         "origem_dado": "PDV_Vendas_Balcao",
         "dados_cliente": "Maria Clara - CPF: 999.888.777-66",
         "contato_cliente": "(21) 98888-7777 / m-clara@gmail.com",
