@@ -251,14 +251,14 @@ function renderEntities() {
         let attrHtml = '';
         ent.attributes.forEach(a => {
             attrHtml += `
-                <li class="flex gap-2 items-center bg-black/40 border border-slate-800 p-1 rounded group/attr" data-attr-id="${a.id}">
+                <li class="flex gap-2 items-center bg-black/40 border border-slate-800 p-1 rounded group" data-attr-id="${a.id}">
                     <input type="text" class="attr-name flex-1 bg-transparent border-b border-transparent focus:border-senai-lightblue text-slate-300 font-mono text-[10px] px-1 outline-none transition-colors" placeholder="nome_atributo" value="${a.name}" onkeyup="validateNamingRules(this)">
                     <select class="attr-prot bg-slate-900 border border-slate-700 text-slate-400 text-[9px] rounded p-1 outline-none cursor-pointer" onchange="saveEntityLive(this)">
                         <option value="nenhuma" ${a.protection==='nenhuma'?'selected':''}>🔓 Nenhuma</option>
                         <option value="mascarar" ${a.protection==='mascarar'?'selected':''}>🎭 Mascarar</option>
                         <option value="criptografar" ${a.protection==='criptografar'?'selected':''}>🔐 Cripto</option>
                     </select>
-                    <button onclick="removeAttribute(${ent.id}, ${a.id})" class="text-slate-600 hover:text-red-400 opacity-0 group-hover/attr:opacity-100 transition-opacity">
+                    <button onclick="removeAttribute(${ent.id}, ${a.id})" class="text-slate-500 hover:text-red-400 opacity-60 hover:opacity-100 transition-opacity p-1">
                         <i data-lucide="x" class="w-3 h-3"></i>
                     </button>
                 </li>
@@ -267,7 +267,7 @@ function renderEntities() {
 
         container.innerHTML += `
             <div class="ent-card bg-black/40 border border-slate-700 rounded-xl p-4 relative group hover:border-senai-blue/60 transition-colors shadow-lg flex flex-col h-auto overflow-hidden" data-id="${ent.id}">
-                <button onclick="removeEntity(${ent.id})" class="absolute -top-3 -right-3 w-7 h-7 bg-red-500/10 text-red-500 border border-red-500/20 hover:bg-red-500 hover:text-white rounded-full flex justify-center items-center shadow-lg transition-all opacity-0 group-hover:opacity-100 scale-90 group-hover:scale-100 z-10" title="Apagar Tabela">
+                <button onclick="removeEntity(${ent.id})" class="absolute top-2 right-2 w-7 h-7 bg-red-500/10 text-red-500 border border-red-500/20 hover:bg-red-500 hover:text-white rounded-full flex justify-center items-center shadow-lg transition-all opacity-60 hover:opacity-100 z-10" title="Apagar Tabela">
                     <i data-lucide="trash" class="w-3 h-3"></i>
                 </button>
                 
